@@ -1,14 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Checkbox = ({ id, checked, handleChecked }) => {
+export const Checkbox = ({ checked, handleToggle }) => {
   return (
-    <input
-      type="checkbox"
-      value={id}
-      onChange={handleChecked}
-      defaultChecked={checked}
-    />
+    <input type="checkbox" onChange={handleToggle} defaultChecked={checked} />
   );
 };
 

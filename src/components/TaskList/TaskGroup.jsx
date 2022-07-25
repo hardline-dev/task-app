@@ -1,12 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+
+import styles from "./TaskGroup.module.scss";
 
 export const TaskGroup = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
+  return <div className={styles.wrapper}>{children}</div>;
 };
-
-const Wrapper = styled.div`
-  background-color: #fff;
-  border-radius: var(--radius-medium);
-  width: 100%;
-`;

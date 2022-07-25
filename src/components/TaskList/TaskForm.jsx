@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+
+import styles from "./TaskForm.module.scss";
 
 export const TaskForm = ({
   handleChangeValue,
@@ -7,15 +8,9 @@ export const TaskForm = ({
   inputValue
 }) => {
   return (
-    <Wrapper>
+    <div className={styles.wrapper}>
       <input type="text" onChange={handleChangeValue} value={inputValue} />
       <button onClick={handleAddButton}>Add task</button>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  background-color: var(--color-white);
-
-  padding: 20px;
-`;

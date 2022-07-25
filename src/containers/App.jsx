@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
 
 import { TaskForm } from "../components/TaskList/TaskForm";
 import { TaskGroup } from "../components/TaskList/TaskGroup";
 import { TaskItem } from "../components/TaskList/TaskItem";
+import { Modal } from "../components/Modal/Modal";
+
+import styles from "./App.module.scss";
 
 export const App = () => {
   const [tasks, setTasks] = useState(getLocalStorage("tasks"));
   const [inputValue, setInputValue] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
 
   const handleChangeValue = (e) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ export const App = () => {
         {
           id: tasks.length ? tasks[tasks.length - 1].id + 1 : tasks.length + 1,
           task: value,
-          completed: isChecked
+          completed: false
         }
       ]);
     } else {
@@ -41,15 +43,15 @@ export const App = () => {
   };
 
   function removeTask(id) {
-    const newTasks = tasks.filter((task) => task.id !== id).map((item) => item);
-    setTasks(newTasks);
-    console.log(newTasks);
+    setTasks([...tasks.filter((task) => task.id !== id)]);
   }
 
-  const handleChecked = (id) => {
-    if (tasks.id === id) {
-      setIsChecked(!isChecked);
-    }
+  const handleToggle = (id) => {
+    setTasks([
+      ...tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : { ...task }
+      )
+    ]);
   };
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export const App = () => {
   }, [tasks]);
 
   return (
-    <Wrapper>
+    <div className={styles.wrapper}>
       <TaskForm
         handleChangeValue={handleChangeValue}
         inputValue={inputValue}
@@ -72,21 +74,18 @@ export const App = () => {
               task={task}
               completed={completed}
               handleRemoveTask={() => handleRemoveTask(id)}
-              handleChecked={handleChecked}
+              handleToggle={() => handleToggle(id)}
+              modalActive={() => setModalActive(true)}
             />
           ))
         ) : (
           <div className="no-task">No task.</div>
         )}
       </TaskGroup>
-    </Wrapper>
+
+      <Modal active={modalActive} setActive={setModalActive}>
+        Hello
+      </Modal>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  margin: 20px;
-`;
