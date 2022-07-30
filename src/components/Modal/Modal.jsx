@@ -3,7 +3,7 @@ import cn from "classnames";
 
 import styles from "./Modal.module.scss";
 
-export const Modal = ({ active, setActive, children }) => {
+export const Modal = ({ children, active, setActive }) => {
   return (
     <div
       className={active ? cn(styles.modal, styles.active) : styles.modal}

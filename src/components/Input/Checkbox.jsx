@@ -1,10 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+
+import styles from "./Checkbox.module.scss";
 
 export const Checkbox = ({ checked, handleToggle }) => {
   return (
-    <input type="checkbox" onChange={handleToggle} defaultChecked={checked} />
+    <input
+      onClick={(e) => e.stopPropagation()}
+      type="checkbox"
+      onChange={handleToggle}
+      defaultChecked={checked}
+    />
   );
 };
-
-const StyledCheckbox = styled.input``;

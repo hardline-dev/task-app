@@ -12,6 +12,7 @@ export const App = () => {
   const [tasks, setTasks] = useState(getLocalStorage("tasks"));
   const [inputValue, setInputValue] = useState("");
   const [modalActive, setModalActive] = useState(false);
+  const [taskData, setTaskData] = useState();
 
   const handleChangeValue = (e) => {
     e.preventDefault();
@@ -30,7 +31,8 @@ export const App = () => {
         {
           id: tasks.length ? tasks[tasks.length - 1].id + 1 : tasks.length + 1,
           task: value,
-          completed: false
+          completed: false,
+          date: getDate()
         }
       ]);
     } else {
@@ -54,6 +56,17 @@ export const App = () => {
     ]);
   };
 
+  const getTaskData = (id) => {
+    setTaskData(tasks.filter((task) => task.id === id));
+  };
+
+  const getDate = () => {
+    const date = new Date();
+    const options = { month: "short" };
+
+    return `${date.toLocaleString("en-US", options)} ${date.getDate()}`;
+  };
+
   useEffect(() => {
     setLocalStorage("tasks", tasks);
   }, [tasks]);
@@ -75,7 +88,8 @@ export const App = () => {
               completed={completed}
               handleRemoveTask={() => handleRemoveTask(id)}
               handleToggle={() => handleToggle(id)}
-              modalActive={() => setModalActive(true)}
+              modalActive={setModalActive}
+              getTaskData={() => getTaskData(id)}
             />
           ))
         ) : (
@@ -84,7 +98,13 @@ export const App = () => {
       </TaskGroup>
 
       <Modal active={modalActive} setActive={setModalActive}>
-        Hello
+        {taskData && (
+          <div>
+            <div>{taskData[0].id}</div>
+            <div>{taskData[0].task}</div>
+            <div>{taskData[0].date}</div>
+          </div>
+        )}
       </Modal>
     </div>
   );

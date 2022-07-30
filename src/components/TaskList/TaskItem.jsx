@@ -11,10 +11,17 @@ export const TaskItem = ({
   completed,
   handleRemoveTask,
   handleToggle,
-  modalActive
+  modalActive,
+  getTaskData
 }) => {
   return (
-    <div className={styles.wrapper} onClick={modalActive}>
+    <div
+      className={styles.wrapper}
+      onClick={() => {
+        modalActive(true);
+        getTaskData();
+      }}
+    >
       <Checkbox id={id} checked={completed} handleToggle={handleToggle} />
       <span
         className={
