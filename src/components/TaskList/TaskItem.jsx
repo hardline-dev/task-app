@@ -8,6 +8,7 @@ import styles from "./TaskItem.module.scss";
 export const TaskItem = ({
   id,
   task,
+  date,
   completed,
   handleRemoveTask,
   handleToggle,
@@ -18,7 +19,7 @@ export const TaskItem = ({
     <div
       className={styles.wrapper}
       onClick={() => {
-        modalActive(true);
+        modalActive({ taskInfo: true });
         getTaskData();
       }}
     >
@@ -30,9 +31,10 @@ export const TaskItem = ({
       >
         {task}
       </span>
-      <button onClick={handleRemoveTask} className="remove">
+      {/* <button onClick={handleRemoveTask} className="remove">
         ×
-      </button>
+      </button> */}
+      <span className={styles.completed}>{date}</span>
     </div>
   );
 };
