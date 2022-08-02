@@ -4,6 +4,11 @@ import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
 import { TaskForm } from "../components/TaskList/TaskForm";
 import { TaskGroup } from "../components/TaskList/TaskGroup";
 import { TaskItem } from "../components/TaskList/TaskItem";
+import { DescList } from "../components/Description/DescList";
+import { DescItem } from "../components/Description/DescItem";
+import { Checkbox } from "../components/Input/Checkbox";
+import { Input } from "../components/Input/Input";
+import { Button } from "../components/Button/Button";
 import { Modal } from "../components/Modal/Modal";
 
 import styles from "./App.module.scss";
@@ -84,34 +89,33 @@ export const App = () => {
 
   return (
     <div className={styles.wrapper}>
-      <TaskForm
-      // handleChangeValue={handleChangeValue}
-      // inputValue={inputValueTitle}
-      // handleAddButton={handleAddButton}
-      >
-        <button onClick={() => setModalActive({ taskAdd: true })}>
-          Add Task
-        </button>
+      <TaskForm>
+        <Button onClick={() => setModalActive({ taskAdd: true })}>
+          Add task
+        </Button>
       </TaskForm>
       <Modal active={modalActive.taskAdd} setActive={setModalActive}>
-        <input
-          type="text"
+        <Input
+          label="Title"
           onChange={handleValueTitle}
           value={inputValueTitle}
+          placeholder="Create a new task"
         />
-        <input
-          type="text"
+        <Input
+          label="Description"
           onChange={handleValueDescription}
           value={inputValueDescription}
+          placeholder="Complete this task for whole day"
         />
 
-        <button
+        <Button
           onClick={() => {
             handleAddButton();
+            setModalActive({ taskAdd: false });
           }}
         >
-          Add task
-        </button>
+          Add
+        </Button>
       </Modal>
 
       <TaskGroup>
@@ -136,10 +140,21 @@ export const App = () => {
       <Modal active={modalActive.taskInfo} setActive={setModalActive}>
         {taskData && (
           <div>
-            <div>{taskData[0].id}</div>
-            <div>{taskData[0].task}</div>
-            <div>{taskData[0].description}</div>
-            <div>{taskData[0].date}</div>
+            <Checkbox
+              id={taskData[0].id}
+              checked={taskData[0].completed}
+              onChange={() => handleToggle(taskData[0].id)}
+            />
+
+            <DescList>
+              <DescItem label="Title">{taskData[0].task}</DescItem>
+              {taskData[0].description && (
+                <DescItem label="Description">
+                  {taskData[0].description}
+                </DescItem>
+              )}
+              <DescItem label="Date">{taskData[0].date}</DescItem>
+            </DescList>
 
             <button
               onClick={() => {

@@ -23,14 +23,16 @@ export const TaskItem = ({
         getTaskData();
       }}
     >
-      <Checkbox id={id} checked={completed} handleToggle={handleToggle} />
-      <span
-        className={
-          completed ? cn(styles.title, styles.completed) : styles.title
-        }
-      >
-        {task}
-      </span>
+      <div>
+        <Checkbox id={id} checked={completed} onChange={handleToggle} />
+        <span
+          className={
+            completed ? cn(styles.title, styles.completed) : styles.title
+          }
+        >
+          {task}
+        </span>
+      </div>
       {/* <button onClick={handleRemoveTask} className="remove">
         ×
       </button> */}
