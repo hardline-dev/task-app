@@ -1,0 +1,46 @@
+.wrapper {
+  display: flex;
+
+  margin-right: 30px;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.label {
+  position: relative;
+  padding-left: 27px;
+  display: inline-block;
+}
+
+.label::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius-medium);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.label::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-purple);
+  border-radius: var(--radius-medium);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.checkbox:checked + .label::after {
+  opacity: 1;
+}

@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+
+  padding: 12px 24px;
+
+  .title {
+    margin-left: 30px;
+  }
+
+  .completed {
+    color: var(--color-gray);
+  }
+}
