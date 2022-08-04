@@ -4,11 +4,14 @@ import styles from "./Checkbox.module.scss";
 
 export const Checkbox = ({ id, checked, onChange }) => {
   return (
-    <input
-      onClick={(e) => e.stopPropagation()}
-      type="checkbox"
-      onChange={onChange}
-      defaultChecked={checked}
-    />
+    <label onClick={(e) => e.stopPropagation()} className={styles.wrapper}>
+      <input
+        className={styles.checkbox}
+        type="checkbox"
+        onChange={onChange}
+        defaultChecked={checked}
+      />
+      <span className={styles.label}></span>
+    </label>
   );
 };

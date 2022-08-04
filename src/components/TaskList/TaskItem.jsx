@@ -6,11 +6,9 @@ import { Checkbox } from "../Input/Checkbox";
 import styles from "./TaskItem.module.scss";
 
 export const TaskItem = ({
-  id,
   task,
   date,
   completed,
-  handleRemoveTask,
   handleToggle,
   modalActive,
   getTaskData
@@ -24,7 +22,7 @@ export const TaskItem = ({
       }}
     >
       <div>
-        <Checkbox id={id} checked={completed} onChange={handleToggle} />
+        <Checkbox checked={completed} onChange={handleToggle} />
         <span
           className={
             completed ? cn(styles.title, styles.completed) : styles.title
@@ -33,9 +31,6 @@ export const TaskItem = ({
           {task}
         </span>
       </div>
-      {/* <button onClick={handleRemoveTask} className="remove">
-        ×
-      </button> */}
       <span className={styles.completed}>{date}</span>
     </div>
   );

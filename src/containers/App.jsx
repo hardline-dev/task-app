@@ -6,7 +6,6 @@ import { TaskGroup } from "../components/TaskList/TaskGroup";
 import { TaskItem } from "../components/TaskList/TaskItem";
 import { DescList } from "../components/Description/DescList";
 import { DescItem } from "../components/Description/DescItem";
-import { Checkbox } from "../components/Input/Checkbox";
 import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { Modal } from "../components/Modal/Modal";
@@ -99,13 +98,11 @@ export const App = () => {
           label="Title"
           onChange={handleValueTitle}
           value={inputValueTitle}
-          placeholder="Create a new task"
         />
         <Input
           label="Description"
           onChange={handleValueDescription}
           value={inputValueDescription}
-          placeholder="Complete this task for whole day"
         />
 
         <Button
@@ -133,19 +130,13 @@ export const App = () => {
             />
           ))
         ) : (
-          <div className="no-task">No task.</div>
+          <div className={styles.no__task}>No task.</div>
         )}
       </TaskGroup>
 
       <Modal active={modalActive.taskInfo} setActive={setModalActive}>
         {taskData && (
           <div>
-            <Checkbox
-              id={taskData[0].id}
-              checked={taskData[0].completed}
-              onChange={() => handleToggle(taskData[0].id)}
-            />
-
             <DescList>
               <DescItem label="Title">{taskData[0].task}</DescItem>
               {taskData[0].description && (
@@ -156,14 +147,15 @@ export const App = () => {
               <DescItem label="Date">{taskData[0].date}</DescItem>
             </DescList>
 
-            <button
+            <Button
               onClick={() => {
                 handleRemoveTask(taskData[0].id);
                 setModalActive({ taskAdd: false });
               }}
+              color="red"
             >
               Remove
-            </button>
+            </Button>
           </div>
         )}
       </Modal>
